@@ -15,7 +15,7 @@ sourceCompatibility = 1.8
 
 group 'com.danielbbeleza.apiserver'
 version '0.0.1'
-mainClassName = "com.danielbbeleza.ApplicationKt"
+mainClassName = "com.danielbbeleza.apiserver.ApplicationKt"
 
 task stage {
     dependsOn installDist
