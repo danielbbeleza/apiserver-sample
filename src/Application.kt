@@ -1,12 +1,13 @@
 package com.danielbbeleza.apiserver
 
+import com.danielbbeleza.apiserver.daos.FriendsDaoImpl
+import com.danielbbeleza.apiserver.models.Friend
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
-import io.ktor.gson.gson
 import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
 import io.ktor.request.receive
@@ -17,7 +18,7 @@ import io.ktor.server.netty.Netty
 import org.jetbrains.exposed.sql.Database
 import javax.naming.AuthenticationException
 
-val dao = ProductDao(
+val dao = FriendsDaoImpl(
     Database.connect(
         "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;", driver =
         "org.h2.Driver"
@@ -49,8 +50,8 @@ fun Routing.setProductsRoute() {
             call.respond(mapOf("products" to dao.getAllProducts()))
         }
         post {
-            val product = call.receive<Product>()
-            dao.createProduct(
+            val product = call.receive<Friend>()
+            dao.createFriend(
                 product.title,
                 product.description,
                 product.price
@@ -58,7 +59,7 @@ fun Routing.setProductsRoute() {
             call.respond(HttpStatusCode.OK)
         }
         put {
-            val product = call.receive<Product>()
+            val product = call.receive<Friend>()
             dao.updateProduct(
                 product.id,
                 product.title,
