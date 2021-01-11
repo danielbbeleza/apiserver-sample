@@ -1,1 +1,1 @@
-web: build/install/ApiServer/bin/ApiServer
+web: build/install/apiserver/bin/apiserver
