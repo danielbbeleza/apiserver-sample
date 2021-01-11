@@ -8,6 +8,7 @@ import io.ktor.application.install
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
+import io.ktor.gson.*
 import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
 import io.ktor.request.receive
@@ -31,7 +32,7 @@ fun main(args: Array<String>) {
         dao.init()
         install(CallLogging)
         install(ContentNegotiation) {
-            jackson { }
+            gson {}
         }
         install(StatusPages) {
             exception<AuthenticationException> {
