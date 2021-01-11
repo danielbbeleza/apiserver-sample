@@ -39,49 +39,47 @@ fun main(args: Array<String>) {
             }
         }
         routing {
-            setProductsRoute()
+            setFriendsRoute()
         }
     }.start(wait = true)
 }
 
-fun Routing.setProductsRoute() {
-    route("/products") {
+fun Routing.setFriendsRoute() {
+    route("/friends") {
         get {
-            call.respond(mapOf("products" to dao.getAllProducts()))
+            call.respond(mapOf("friends" to dao.getAllFriends()))
         }
         post {
-            val product = call.receive<Friend>()
+            val friend = call.receive<Friend>()
             dao.createFriend(
-                product.title,
-                product.description,
-                product.price
+                friend.name,
+                friend.phoneNumber
             )
             call.respond(HttpStatusCode.OK)
         }
         put {
-            val product = call.receive<Friend>()
-            dao.updateProduct(
-                product.id,
-                product.title,
-                product.description,
-                product.price
+            val friend = call.receive<Friend>()
+            dao.updateFriend(
+                friend.id,
+                friend.name,
+                friend.phoneNumber
             )
             call.respond(HttpStatusCode.Accepted)
         }
         delete("/{id}") {
             val id = call.parameters["id"]
             id?.let {
-                dao.deleteProduct(id.toInt())
+                dao.deleteFriend(id.toInt())
             }
         }
         get("/{id}") {
             val id = call.parameters["id"]
             id?.let {
-                val response = dao.getProduct(id.toInt())
+                val response = dao.getFriend(id.toInt())
                 if (response != null) {
                     call.respond(response)
                 } else {
-                    call.respond("No such product found")
+                    call.respond("No such friend found")
                 }
             }
         }
