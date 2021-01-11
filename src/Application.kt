@@ -26,7 +26,7 @@ val dao = ProductDao(
 
 fun main(args: Array<String>) {
     val port = System.getenv("PORT")?.toInt() ?: 23567
-    embeddedServer(Netty, port) {
+    embeddedServer(Netty, host = "tranquil-taiga-04479.herokuapp.com") {
         dao.init()
         install(CallLogging)
         install(ContentNegotiation) {
