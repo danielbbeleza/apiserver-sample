@@ -10,7 +10,6 @@ import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
 import io.ktor.gson.*
 import io.ktor.http.HttpStatusCode
-import io.ktor.jackson.jackson
 import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.*
@@ -26,7 +25,7 @@ val dao = FriendsDaoImpl(
     )
 )
 
-fun main(args: Array<String>) {
+fun main() {
     val port = System.getenv("PORT")?.toInt() ?: 23567
     embeddedServer(Netty, port) {
         dao.init()
